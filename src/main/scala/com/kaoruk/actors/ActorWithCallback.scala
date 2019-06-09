@@ -1,7 +1,7 @@
-package com.kaoruk
+package com.kaoruk.actors
 
 import akka.actor.{Actor, Props}
-import com.kaoruk.Hook.Callback
+import com.kaoruk.actors.ActorHooks.Callback
 import org.slf4j.LoggerFactory
 
 class ActorWithCallback(registerCallback: Callback => Unit) extends Actor {

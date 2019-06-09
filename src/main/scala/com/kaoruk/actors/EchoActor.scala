@@ -1,4 +1,4 @@
-package com.kaoruk
+package com.kaoruk.actors
 
 import akka.actor.Actor
 import org.slf4j.LoggerFactory

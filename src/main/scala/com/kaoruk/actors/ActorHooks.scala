@@ -1,17 +1,21 @@
-package com.kaoruk
+package com.kaoruk.actors
 
 import java.util.concurrent.TimeUnit
 
-import akka.actor.{Actor, ActorSystem, PoisonPill, Props}
-import akka.pattern.ask
+import akka.actor.{ActorSystem, Props}
 import akka.util.Timeout
 import org.slf4j.LoggerFactory
+import akka.pattern.ask
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext}
 
-
-object Hook extends App {
+/**
+  * This demonstrates that one should not use actors are callback handlers. When an Actor's method is used as a callback,
+  * the actor instance is ineligible for GC. But the ActorSystem will replace it old actor with a new one, thus
+  * introducing a potential memory leak.
+  */
+object ActorHooks extends App {
   type Callback = String => Unit
   val logger = LoggerFactory.getLogger(getClass.getCanonicalName)
 
@@ -49,4 +53,3 @@ object Hook extends App {
 
   Await.result(system.terminate(), Duration.apply(1, TimeUnit.MINUTES))
 }
-
