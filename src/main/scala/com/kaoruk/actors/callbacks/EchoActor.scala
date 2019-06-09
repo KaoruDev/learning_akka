@@ -1,9 +1,9 @@
-package com.kaoruk.actors
+package com.kaoruk.actors.callbacks
 
 import akka.actor.Actor
 import org.slf4j.LoggerFactory
 
-class EchoActor extends Actor {
+private[callbacks] class EchoActor extends Actor {
   val logger = LoggerFactory.getLogger(getClass.getCanonicalName)
 
 

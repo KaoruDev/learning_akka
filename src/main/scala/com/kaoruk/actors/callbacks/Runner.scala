@@ -1,11 +1,11 @@
-package com.kaoruk.actors
+package com.kaoruk.actors.callbacks
 
 import java.util.concurrent.TimeUnit
 
 import akka.actor.{ActorSystem, Props}
+import akka.pattern.ask
 import akka.util.Timeout
 import org.slf4j.LoggerFactory
-import akka.pattern.ask
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext}
@@ -15,7 +15,7 @@ import scala.concurrent.{Await, ExecutionContext}
   * the actor instance is ineligible for GC. But the ActorSystem will replace it old actor with a new one, thus
   * introducing a potential memory leak.
   */
-object ActorHooks extends App {
+private[callbacks] object Runner extends App {
   type Callback = String => Unit
   val logger = LoggerFactory.getLogger(getClass.getCanonicalName)
 
@@ -51,5 +51,7 @@ object ActorHooks extends App {
 
   Thread.sleep(1000)
 
+  logger.info("Shutting down actor system")
   Await.result(system.terminate(), Duration.apply(1, TimeUnit.MINUTES))
+  hooks.foreach(_.apply("Still alive -- even after system terminated?"))
 }

@@ -1,10 +1,10 @@
-package com.kaoruk.actors
+package com.kaoruk.actors.callbacks
 
 import akka.actor.{Actor, Props}
-import com.kaoruk.actors.ActorHooks.Callback
+import com.kaoruk.actors.callbacks.Runner.Callback
 import org.slf4j.LoggerFactory
 
-class ActorWithCallback(registerCallback: Callback => Unit) extends Actor {
+private[callbacks] class ActorWithCallback(registerCallback: Callback => Unit) extends Actor {
   private val logger = LoggerFactory.getLogger(getClass.getCanonicalName)
 
   registerCallback(handleCallback)
