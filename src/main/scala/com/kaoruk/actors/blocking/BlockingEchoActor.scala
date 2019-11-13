@@ -21,7 +21,7 @@ private[blocking] class BlockingEchoActor extends Actor {
       logger.info("Received {}", message)
       val ogSender = sender
       Future {
-//        Thread.sleep(500)
+        Thread.sleep(500)
         ogSender ! message
       }(context.dispatcher)
     case message =>

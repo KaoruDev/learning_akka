@@ -19,14 +19,18 @@ object Runner extends App {
   implicit val timeout = Timeout(1.second)
   val actorPath = actor.path
 
-  for (i <- 1 to 10) {
-    logger.info(s"sending hello $i...")
-    (actor ? s"hello $i").mapTo[String].foreach(response => {
-      logger.info(s"got response: $response")
-    })(system.dispatcher)
-  }
+  pool.submit(new Runnable {
+    override def run(): Unit = {
+      for (i <- 1 to 10) {
+        logger.info(s"sending hello $i...")
+        (actor ? s"hello $i").mapTo[String].foreach(response => {
+          logger.info(s"got response: $response")
+        })(system.dispatcher)
+      }
+    }
+  })
 
-  Thread.sleep(1000)
+  Thread.sleep(10000)
   logger.info("Starting to terminate system")
   system.terminate().onComplete(_ => {
     logger.info("Terminated")
