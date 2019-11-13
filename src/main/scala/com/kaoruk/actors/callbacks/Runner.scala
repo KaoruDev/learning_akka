@@ -15,7 +15,7 @@ import scala.concurrent.{Await, ExecutionContext}
   * the actor instance is ineligible for GC. But the ActorSystem will replace it old actor with a new one, thus
   * introducing a potential memory leak.
   */
-private[callbacks] object Runner extends App {
+object Runner extends App {
   type Callback = String => Unit
   val logger = LoggerFactory.getLogger(getClass.getCanonicalName)
 
