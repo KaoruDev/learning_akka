@@ -18,10 +18,10 @@ private[blocking] class BlockingEchoActor extends Actor {
       logger.info("BOOOOM")
       throw new Exception("BOOM!")
     case message: String =>
-      logger.info("{}", message)
+      logger.info("Received {}", message)
       val ogSender = sender
       Future {
-        Thread.sleep(500)
+//        Thread.sleep(500)
         ogSender ! message
       }(context.dispatcher)
     case message =>
