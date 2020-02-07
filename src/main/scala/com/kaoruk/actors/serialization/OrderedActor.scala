@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory
 
 class OrderedActor(implicit ec: ExecutionContext) extends Actor {
   val rand = new Random()
-  val logger = LoggerFactory.getLogger(UnorderedActor.getClass)
+  val logger = LoggerFactory.getLogger(OrderedActor.getClass)
 
   var busy = false
   val buffer = new mutable.Queue[Int]
